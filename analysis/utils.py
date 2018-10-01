@@ -1,6 +1,6 @@
 from collections import defaultdict, Counter
-from gender_babynames import gender
-from gender import gender_special
+from .gender_babynames import gender
+from .gender import gender_special
 from pprint import pprint
 import numpy as np
 import string
@@ -59,13 +59,13 @@ def get_gender(name, verbose=False):
         if special_found:
             return special_found.upper()
         if verbose:
-            print 'Gender not found:', name
+            print('Gender not found:', name)
     if type(found) is tuple:
         special_found = gender_special.get(name, None)
         if special_found:
             return special_found.upper()
         if verbose:
-            print 'Ambiguous gender:', name, found
+            print('Ambiguous gender:', name, found)
     elif type(found) is str:
         found = found.upper()
     return found
@@ -257,8 +257,8 @@ def get_quotes(people_mentioned, sentences, corefs):
             if token.get('speaker', '').isdigit():
                 speaker_id = int(token['speaker'])
                 if VERBOSE:
-                    print 'FOUND QUOTE'
-                    print speaker_id
+                    print('FOUND QUOTE')
+                    print(speaker_id)
                 root_coref_id = mention_to_coref_chain[speaker_id]
                 if root_coref_id in corefs_to_people:
                     people_to_quotes[corefs_to_people[root_coref_id]].append(
@@ -601,21 +601,21 @@ def get_people_mentioned_new(sentences, corefs):
 
 
     '''
-    print 'MENTIONS DICTIONARY:'
+    print('MENTIONS DICTIONARY:')
     pprint(mentions_dictionary)
     pprint(sentences[0]['tokens'])
-    print 'COREFS'
+    print('COREFS')
     pprint(corefs)
-    print 'Mention key to id'
+    print('Mention key to id')
     pprint(mention_key_to_id)
-    print 'Id to info'
+    print('Id to info')
     pprint(id_to_info)
     pprint(sentences[0])
-    print 'DISJOINT SET OF MENTIONS:'
+    print('DISJOINT SET OF MENTIONS:')
     pprint(disjoint_sets_of_mentions)
-    print 'ID TO INFO:'
+    print('ID TO INFO:')
     pprint(id_to_info)
-    print 'SENTENCES'
+    print('SENTENCES')
     pprint([s['tokens'] for s in sentences])
     pprint(id_to_info)
     '''
@@ -625,7 +625,7 @@ def get_people_mentioned_new(sentences, corefs):
 def add_corefs_info(mentions_dictionary, corefs):
 
     # COREFERENCE-BASED GENDER EXTRACTION
-    # print "COREFERENCE CHAINS"
+    # print("COREFERENCE CHAINS")
     # pprint(corefs)
     for coref_chain_id, coref_chain in corefs.iteritems():
         mentions_pos = []
@@ -846,10 +846,10 @@ def detect_relationships(mentions_dictionary, key_to_detect, sentences,
                     elif gov_idx == prev_token_idx + 1:
                         possessor_idxs.append(dep['dependent'])
 
-            # print key_to_detect, possessor_idxs
+            # print(key_to_detect, possessor_idxs)
 
             if len(possessor_idxs) > 1:
-                print 'TWO POSSESSORS OF THIS PERSON!'
+                print('TWO POSSESSORS OF THIS PERSON!')
 
             if len(possessor_idxs) == 1:
                 possessor_idx = possessor_idxs[0]
@@ -871,7 +871,7 @@ def detect_relationships(mentions_dictionary, key_to_detect, sentences,
                              len(mentions_dictionary[cm]['text'].split()) > 1]
 
                     if len(candidate_mentions) > 1:
-                        print 'TOO MANY CANDIDATES SURNAMES'
+                        print('TOO MANY CANDIDATES SURNAMES')
 
                     # FIXME: Should do something different if multiple
                     # surnames
@@ -1268,8 +1268,8 @@ def add_quotes(sentences, corefs, mentions_dictionary,
             if token.get('speaker', '').isdigit():
                 speaker_id = int(token['speaker'])
                 if VERBOSE:
-                    print 'FOUND QUOTE'
-                    print speaker_id
+                    print('FOUND QUOTE')
+                    print(speaker_id)
                 if speaker_id in coref_mention_id_to_entity_id:
                     entity_id = coref_mention_id_to_entity_id[speaker_id]
                     id_to_info[entity_id]['quotes'].append(token)

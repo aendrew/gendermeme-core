@@ -27,6 +27,14 @@ def annotate_corenlp(text, annotators=['pos'], output_format='json', hostname='l
                 'ascii', 'ignore')
             # To replace double quotes with single quotes
             text = text.replace("''", '"')
+            nlp = StanfordCoreNLP('http://{}:{}'.format(
+                os.getenv('CORENLP_HOSTNAME', hostname),
+                os.getenv('CORENLP_PORT', port)))
+
+            return nlp.annotate(text, properties={
+                'annotators': ','.join(annotators),
+                'outputFormat': output_format
+                })
     except Exception:  # Python3
         if type(text) is str:
             UNICODE_ASCII_MAP = {
@@ -40,11 +48,11 @@ def annotate_corenlp(text, annotators=['pos'], output_format='json', hostname='l
             # To replace double quotes with single quotes
             text = text.replace(b"''", b'"')
 
-    nlp = StanfordCoreNLP('http://{}:{}'.format(
-        os.getenv('CORENLP_HOSTNAME', hostname),
-        os.getenv('CORENLP_PORT', port)))
+            nlp = StanfordCoreNLP('http://{}:{}'.format(
+                os.getenv('CORENLP_HOSTNAME', hostname),
+                os.getenv('CORENLP_PORT', port)))
 
-    return nlp.annotate(text, properties={
-        'annotators': ','.join(annotators),
-        'outputFormat': output_format
-        })
+            return nlp.annotate(str(text), properties={
+                'annotators': ','.join(annotators),
+                'outputFormat': output_format
+                })

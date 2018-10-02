@@ -15,15 +15,26 @@ def annotate_corenlp(text, annotators=['pos'], output_format='json', hostname='l
         http://stanfordnlp.github.io/CoreNLP/annotators.html. You just need to
         put the property name from that table into this list. (Ex: 'pos', 'ner')
     """
-    if type(text) is unicode:
-        UNICODE_ASCII_MAP = {
-            0x2018: u'\'',
-            0x2019: u'\'',
-            0x201c: u'\"',
-            0x201d: u'\"'
-        }
-        text = text.translate(UNICODE_ASCII_MAP).encode(
-            'ascii', 'ignore')
+    try:
+        if type(text) is unicode:
+            UNICODE_ASCII_MAP = {
+                0x2018: u'\'',
+                0x2019: u'\'',
+                0x201c: u'\"',
+                0x201d: u'\"'
+            }
+            text = text.translate(UNICODE_ASCII_MAP).encode(
+                'ascii', 'ignore')
+    except Exception:  # Python3
+        if type(text) is str:
+            UNICODE_ASCII_MAP = {
+                0x2018: u'\'',
+                0x2019: u'\'',
+                0x201c: u'\"',
+                0x201d: u'\"'
+            }
+            text = text.translate(UNICODE_ASCII_MAP).encode(
+                'ascii', 'ignore')
 
     # To replace double quotes with single quotes
     text = text.replace("''", '"')

@@ -23,7 +23,7 @@ def get_article_info(article_text, ann=None, verbose=False):
         ann = nlp_utils.annotate_corenlp(
                 article_text,
                 annotators=['pos', 'lemma', 'ner', 'parse',
-                            'depparse', 'dcoref', 'quote',
+                            'depparse', 'dcoref', 'coref', 'quote',
                             'openie'])
 
     sentences, corefs = ann['sentences'], ann['corefs']

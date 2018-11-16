@@ -33,8 +33,7 @@ def get_article_info(article_text, ann=None, verbose=False):
                 'quote',
                 'openie',
                 'tokenize',
-                'ssplit',
-                'CanonicalEntityMentionIndexAnnotation'
+                'ssplit'
             ])
 
     sentences, corefs = ann['sentences'], ann['corefs']

@@ -1,5 +1,5 @@
 from .utils import get_people_mentioned_new
-from nlp import utils as nlp_utils
+from ..nlp import utils as nlp_utils
 import sys
 import os
 from pprint import pprint

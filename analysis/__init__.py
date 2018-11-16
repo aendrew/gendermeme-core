@@ -23,16 +23,13 @@ def get_article_info(article_text, ann=None, verbose=False):
         ann = nlp_utils.annotate_corenlp(
             article_text,
             annotators=[
-                'tokenize',
-                'ssplit',
                 'pos',
                 'lemma',
                 'ner',
-                'depparse',
-                'coref',
-                'quote',
-                'dcoref',
                 'parse',
+                'depparse',
+                'dcoref',
+                'quote',
                 'openie',
             ])
 

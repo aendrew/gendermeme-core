@@ -2,7 +2,7 @@ from pycorenlp import StanfordCoreNLP
 import os
 
 
-def annotate_corenlp(text, annotators=['tokenize', 'ssplit', 'pos', 'lemma', 'ner', 'depparse', 'coref', 'quote', 'dcoref', 'parse', 'openie'], output_format='json', hostname='localhost', port=9000):
+def annotate_corenlp(text, annotators=['pos'], output_format='json', hostname='localhost', port=9000):
     """
     Helper function to get the CoreNLP output.
     Usage:
@@ -30,7 +30,8 @@ def annotate_corenlp(text, annotators=['tokenize', 'ssplit', 'pos', 'lemma', 'ne
         os.getenv('CORENLP_HOSTNAME', hostname),
         os.getenv('CORENLP_PORT', port)))
 
+    print(annotators)
     return nlp.annotate(str(text), properties={
-        'annotators': annotators,
+        'annotators': ','.join(annotators),
         'outputFormat': output_format
     })

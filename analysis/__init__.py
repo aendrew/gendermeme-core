@@ -30,10 +30,10 @@ def get_article_info(article_text, ann=None, verbose=False):
                 'depparse',
                 'dcoref',
                 'coref',
-                'quote',
                 'openie',
                 'tokenize',
-                'ssplit'
+                'ssplit',
+                'quote',
             ])
 
     sentences, corefs = ann['sentences'], ann['corefs']

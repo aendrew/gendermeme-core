@@ -128,7 +128,7 @@ def get_gender_with_context(name, corefs, honorifics):
 
     name_words = set(name.split())
 
-    for honorific, names in honorifics.iteritems():
+    for honorific, names in honorifics.items():
         for h_name in names:
             if len(set(h_name.split()).intersection(name_words)) > 0:
                 # Honorofics is none for things like doctor, which
@@ -190,11 +190,11 @@ def identify_sources(people, sentences=None, corefs=None,
     # and has, for each of them, a list of reasons why we classified them
     # as sources.
     sources = defaultdict(list)
-    for p, quotes in people_to_quotes.iteritems():
+    for p, quotes in people_to_quotes.items():
         if len(quotes) > 0:
             sources[p].append('Quoted saying {} words'.format(len(quotes)))
 
-    for p, verbs in people_to_verbs.iteritems():
+    for p, verbs in people_to_verbs.items():
         # Verbs is a list of (actual verb from text, lemma). For example,
         # [(said, say), (say, say), (spoke, speak)]
         verb_lemma_set = set([v[1] for v in verbs])
@@ -227,7 +227,7 @@ def get_quotes(people_mentioned, sentences, corefs):
     corefs_to_people = {}
     mention_to_coref_chain = {}
 
-    for coref_id, coref_chain in corefs.iteritems():
+    for coref_id, coref_chain in corefs.items():
         for mention in coref_chain:
             mention_to_coref_chain[int(mention['id'])] = coref_id
             full_name = None
@@ -317,7 +317,7 @@ def get_associated_adjectives(people, sentences, corefs):
                                                      corefs)
 
     ment_locs_to_people = {}
-    for person, ment_locs in people_to_ment_locs.iteritems():
+    for person, ment_locs in people_to_ment_locs.items():
         for ment_loc in ment_locs:
             ment_locs_to_people[ment_loc] = person
 
@@ -375,7 +375,7 @@ def get_associated_verbs(people, sentences, corefs):
                                                      corefs)
 
     ment_locs_to_people = {}
-    for person, ment_locs in people_to_ment_locs.iteritems():
+    for person, ment_locs in people_to_ment_locs.items():
         for ment_loc in ment_locs:
             ment_locs_to_people[ment_loc] = person
 
@@ -413,7 +413,7 @@ def which_people_are_companies(people, sentences, corefs):
                                                      corefs)
 
     ment_locs_to_people = {}
-    for person, ment_locs in people_to_ment_locs.iteritems():
+    for person, ment_locs in people_to_ment_locs.items():
         for ment_loc in ment_locs:
             ment_locs_to_people[ment_loc] = person
 
@@ -535,7 +535,7 @@ def get_people_mentioned(sentences, corefs=None, include_gender=False,
         honorifics = _get_honorifics(sentences)
         people_mentioned = {k: (v, get_gender_with_context(k, corefs,
                                                            honorifics))
-                            for k, v in people_mentioned.iteritems()}
+                            for k, v in people_mentioned.items()}
     return people_mentioned
 
 
@@ -1126,7 +1126,7 @@ def tag_sources(id_to_info):
     SPEAKING_LEMMAS = {'say', 'tell', 'speak', 'ask', 'mention', 'suggest',
                        'claim', 'question', 'tweet', 'write'}
 
-    for _id, info_dict in id_to_info.iteritems():
+    for _id, info_dict in id_to_info.items():
         reasons = []
         num_quotes = len(info_dict.get('quotes', []))
         if num_quotes > 0:
@@ -1215,7 +1215,7 @@ def _get_word_loc_to_entity_id(corefs, mentions_dictionary,
     # a (sent_idx, token_idx) tuple, both 1-based, to the entity id.
     # This will be useful when looking at the dependency parse.
     coref_mention_id_to_entity_id = {}
-    for mention_key, mention_dict in mentions_dictionary.iteritems():
+    for mention_key, mention_dict in mentions_dictionary.items():
         coref_mention_ids = mention_dict.get('coref_mention_ids', [])
         for coref_mention_id in coref_mention_ids:
             coref_mention_id_to_entity_id[coref_mention_id] = \
@@ -1223,11 +1223,11 @@ def _get_word_loc_to_entity_id(corefs, mentions_dictionary,
 
     word_loc_to_entity_id = {}
 
-    for (sent_idx, start_idx, end_idx), _id in mention_key_to_id.iteritems():
+    for (sent_idx, start_idx, end_idx), _id in mention_key_to_id.items():
         for curr_idx in range(start_idx, end_idx + 1):
             word_loc_to_entity_id[(sent_idx, curr_idx)] = _id
 
-    for coref_id, coref_chain in corefs.iteritems():
+    for coref_id, coref_chain in corefs.items():
 
         entity_in_chain = None
         for coref_mention_dict in coref_chain:
@@ -1256,7 +1256,7 @@ def add_quotes(sentences, corefs, mentions_dictionary,
         id_to_info[entity_id]['quotes'] = []
 
     coref_mention_id_to_entity_id = {}
-    for mention_key, mention_dict in mentions_dictionary.iteritems():
+    for mention_key, mention_dict in mentions_dictionary.items():
         coref_mention_ids = mention_dict.get('coref_mention_ids', [])
         for coref_mention_id in coref_mention_ids:
             coref_mention_id_to_entity_id[coref_mention_id] = \
@@ -1286,7 +1286,7 @@ def add_quotes(sentences, corefs, mentions_dictionary,
     # between mentions and the coreference chain that they are in.
 
     coref_chain_mention_id_to_key = {}
-    for coref_id, coref_chain in corefs.iteritems():
+    for coref_id, coref_chain in corefs.items():
         for mention_dict in coref_chain:
             coref_chain_mention_id_to_key[mention_dict['id']] = coref_id
 
@@ -1358,12 +1358,12 @@ def _get_mentions_coreferent_with_word(mentions_dictionary, corefs,
     keys_of_coreferent_mentions = set()
 
     coref_id_to_mention_key = {}
-    for key, mentions_dict in mentions_dictionary.iteritems():
+    for key, mentions_dict in mentions_dictionary.items():
         coref_ids_of_mention = mentions_dict.get('coref_mention_ids', [])
         for coref_id in coref_ids_of_mention:
             coref_id_to_mention_key[coref_id] = key
 
-    for coref_id, coref_chain in corefs.iteritems():
+    for coref_id, coref_chain in corefs.items():
         chain_contains_word = False
         for coref_mention_dict in coref_chain:
             if coref_mention_dict['sentNum'] == word_sent_idx:
@@ -1402,7 +1402,7 @@ def _get_locations_of_mentions(people, sentences, corefs):
 
     part_to_full_name = _build_index_with_part_names(people)
 
-    for coref_id, coref_chain in corefs.iteritems():
+    for coref_id, coref_chain in corefs.items():
         # The person (out of our list of people)
         # who this coref chain corresponds to, if any.
         curr_chain_person = None

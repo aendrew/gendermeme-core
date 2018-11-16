@@ -1,3 +1,5 @@
+from .utils import get_people_mentioned_new
+from nlp import utils as nlp_utils
 import sys
 import os
 from pprint import pprint
@@ -9,8 +11,6 @@ def get_file_path():
 
 
 sys.path.append(os.path.join(get_file_path(), '../'))
-from nlp import utils as nlp_utils
-from .utils import get_people_mentioned_new
 
 
 def get_article_info(article_text, ann=None, verbose=False):
@@ -21,10 +21,20 @@ def get_article_info(article_text, ann=None, verbose=False):
     """
     if ann is None:
         ann = nlp_utils.annotate_corenlp(
-                article_text,
-                annotators=['pos', 'lemma', 'ner', 'parse',
-                            'depparse', 'dcoref', 'coref', 'quote',
-                            'openie'])
+            article_text,
+            annotators=[
+                'pos',
+                'lemma',
+                'ner',
+                'parse',
+                'depparse',
+                'dcoref',
+                'coref',
+                'quote',
+                'openie',
+                'tokenize',
+                'ssplit'
+            ])
 
     sentences, corefs = ann['sentences'], ann['corefs']
     if verbose:

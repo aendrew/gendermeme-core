@@ -72,7 +72,7 @@ def get_article_info(article_text, ann=None, verbose=False):
 
     json_list = []
 
-    for _id, _dict in sorted(id_to_info.iteritems()):
+    for (_id, _dict) in sorted(id_to_info.items()):
         gender_method = _dict.get('gender_method')
         # If gender_method is in the map, we translate it to its
         # pretty form; else, we just pass it through.

@@ -523,7 +523,7 @@ def get_people_mentioned(sentences, corefs=None, include_gender=False,
                     curr_mention = ''
 
     people_mentioned = {' '.join(key): value for
-                        key, value in people_mentioned.iteritems()}
+                        (key, value) in people_mentioned.items()}
 
     if exclude_companies:
         companies = which_people_are_companies(people_mentioned,
@@ -936,7 +936,7 @@ def merge_mentions(mentions_dictionary):
         new_mention = mentions_dictionary[key]
         new_mention_text = new_mention['text']
         intersection_idx = []
-        for idx, set_of_mentions in disjoint_sets_of_mentions.iteritems():
+        for idx, set_of_mentions in disjoint_sets_of_mentions.items():
             for key_m in set_of_mentions:
                 mention_text = mentions_dictionary[key_m]['text']
                 # Determine whether the new mention is a subset of
@@ -947,7 +947,7 @@ def merge_mentions(mentions_dictionary):
 
         # This is for potential (ie, inferred) surnames
         potential_intersection_idx = []
-        for idx, set_of_mentions in disjoint_sets_of_mentions.iteritems():
+        for idx, set_of_mentions in disjoint_sets_of_mentions.items():
             if idx in intersection_idx:
                 continue
             for key_m in set_of_mentions:
@@ -1009,7 +1009,7 @@ def merge_mentions(mentions_dictionary):
 
     id_to_info = {}
     mention_key_to_id = {}
-    for _id, set_of_mentions in disjoint_sets_of_mentions.iteritems():
+    for _id, set_of_mentions in disjoint_sets_of_mentions.items():
         longest_mention = ''
         set_gender = None
 
@@ -1293,7 +1293,7 @@ def add_quotes(sentences, corefs, mentions_dictionary,
     # For every unmatched speaker, find the coreference chain.
 
     for unmatched_speaker, curr_quotes in \
-            unmatched_speakers_quotes.iteritems():
+            unmatched_speakers_quotes.items():
         coref_chain_key = coref_chain_mention_id_to_key[unmatched_speaker]
         coref_chain = corefs[coref_chain_key]
         # Currently only care if the speaker is singular.

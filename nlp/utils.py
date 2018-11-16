@@ -30,7 +30,6 @@ def annotate_corenlp(text, annotators=['pos'], output_format='json', hostname='l
         os.getenv('CORENLP_HOSTNAME', hostname),
         os.getenv('CORENLP_PORT', port)))
 
-    print(annotators)
     return nlp.annotate(str(text), properties={
         'annotators': ','.join(annotators),
         'outputFormat': output_format

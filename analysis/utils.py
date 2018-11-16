@@ -627,7 +627,7 @@ def add_corefs_info(mentions_dictionary, corefs):
     # COREFERENCE-BASED GENDER EXTRACTION
     # print("COREFERENCE CHAINS")
     # pprint(corefs)
-    for coref_chain_id, coref_chain in corefs.iteritems():
+    for (coref_chain_id, coref_chain) in corefs.items():
         mentions_pos = []
         male_pronoun_count = 0
         female_pronoun_count = 0
